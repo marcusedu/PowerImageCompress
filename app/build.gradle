@@ -39,3 +39,29 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'org.jetbrains:annotations-java5:15.0'
 }
+
+task jarTask(type: Jar) {
+    baseName="my-sdk-android"
+    from 'src/main/java'
+}
+
+task createJarWithDependencies(type: Jar) {
+    baseName = "PowerImageCompress"
+
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+
+    }
+
+    with jarTask
+}
+
+configurations {
+    jarConfiguration
+}
+
+artifacts {
+    jarConfiguration jarTask
+}
