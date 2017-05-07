@@ -19,8 +19,8 @@ public class PAImgCprs {
     private String TAG = "PAImgCprs";
     private int largura = 1280, altura = 780, taxaCompressao = 65;
     private Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
-    private boolean redimensionar = false;
-    private boolean proporcao = true;
+    private boolean manterResolucao = false;
+    private boolean manterProporcao = true;
 
     PAImgCprs(@NotNull String caminhoDaImagem) {
         File arquivo = new File(caminhoDaImagem);
@@ -71,11 +71,11 @@ public class PAImgCprs {
     /**
      * Define se a imagem será redimensionada ou somente comprimida
      *
-     * @param redimensionar true para não redimensionar, valor padrão false
+     * @param redimensionar true para não manterResolucao, valor padrão false
      * @return Builder
      */
     public PAImgCprs manterResolucao(@NotNull boolean redimensionar) {
-        this.redimensionar = redimensionar;
+        this.manterResolucao = redimensionar;
         return this;
     }
 
@@ -87,7 +87,7 @@ public class PAImgCprs {
      * @return Buildes
      */
     public PAImgCprs manterProporcao(@NotNull boolean proporcao) {
-        this.proporcao = proporcao;
+        this.manterProporcao = proporcao;
         return this;
     }
 
@@ -114,24 +114,30 @@ public class PAImgCprs {
     public byte[] pegarBytes() {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         Matrix matrix = new Matrix();
-        float scala = 1;
+        float scalaLagura = 1;
+        float scalaAltura = 1;
         Bitmap novoBmp;
         Bitmap bmpOriginal = BitmapFactory.decodeFile(imagemAComprimir.getAbsolutePath());
 
-        int w = bmpOriginal.getWidth();
-        int h = bmpOriginal.getHeight();
+        int larguraAntiga = bmpOriginal.getWidth();
+        int alturaAntiga = bmpOriginal.getHeight();
 
-        if (w > largura) {
-            scala = largura / w;
-        } else if (h > altura) {
-            scala = altura / h;
+        if (!manterResolucao) {
+            if (manterProporcao) {
+                if (larguraAntiga > largura) {
+                    scalaAltura = scalaLagura = largura / larguraAntiga;
+                } else if (alturaAntiga > altura) {
+                    scalaAltura = scalaLagura = altura / alturaAntiga;
+                }
+            } else {
+                scalaLagura = largura / larguraAntiga;
+                scalaAltura = altura / alturaAntiga;
+            }
         }
-        if (!proporcao)
-            matrix.postScale(largura / w, altura / h);
-        else
-            matrix.postScale(scala, scala);
 
-        novoBmp = Bitmap.createBitmap(bmpOriginal, 0, 0, w, h, matrix, true);
+        matrix.postScale(scalaLagura, scalaAltura);
+
+        novoBmp = Bitmap.createBitmap(bmpOriginal, 0, 0, larguraAntiga, alturaAntiga, matrix, true);
         novoBmp.compress(compressFormat, taxaCompressao, stream);
         return stream.toByteArray();
     }
