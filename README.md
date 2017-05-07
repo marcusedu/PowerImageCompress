@@ -11,6 +11,7 @@ Registro no repositorio Mavem em progresso.
   - Substituir a imagem do arquivo de origem.
   - Copiar ou mover a imagem para outro diretorio.
   - Passar um ImageView para exibir a imagem processada.
+  - Comprime a imagem mantendo a resolução original.
   
 ## Modo de Usar
 
