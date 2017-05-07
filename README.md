@@ -11,6 +11,7 @@ Registro no repositorio Mavem em progresso.
   - Substituir a imagem do arquivo de origem.
   - Copiar ou mover a imagem para outro diretorio.
   - Passar um ImageView para exibir a imagem processada.
+  - Comprime a imagem mantendo a resolução original.
   
 ## Modo de Usar
 
@@ -23,6 +24,9 @@ Adicione a permissão no seu AndroidManifest.xml
 ## Importe a Biblioteca
 
 ## Começe a usar!
+
+- [Baixe o arquivo .aar] da versão mais recente na pasta aar.
+- Sigua esse [guia] do Android Studio para importar a biblioteca AAR
 
 ### Salvando no arquivo
 ```java
@@ -64,3 +68,5 @@ ImageView mImageView = PowerImageCompress.doArquivo("/caminho/do/arquivo.jpg")
                   .taxaCompressao(65)
                   .exibirEm(imageView);
 ```
+[Baixe o arquivo .aar]: https://github.com/marcusedu/PowerImageCompress/tree/master/aar/br/com/powerapps/powerimagecompress
+[guia]: https://developer.android.com/studio/projects/android-library.html?hl=pt-br#AddDependency
