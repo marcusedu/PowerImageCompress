@@ -24,7 +24,7 @@ public class PAImgCprs {
 
     PAImgCprs(@NotNull String caminhoDaImagem) {
         File arquivo = new File(caminhoDaImagem);
-        new PAImgCprs(arquivo);
+        this.imagemAComprimir = Goiaba.checaSeArquivoValido(arquivo);
     }
 
 
@@ -62,7 +62,7 @@ public class PAImgCprs {
      * @param altura  altura desejada para imagem final, valor padrão 1280
      * @return Builder
      */
-    public PAImgCprs paraLarguraXAltura(@NotNull int largura,@NotNull  int altura) {
+    public PAImgCprs paraLarguraXAltura(@NotNull int largura, @NotNull int altura) {
         this.largura = largura;
         this.altura = altura;
         return this;
@@ -178,6 +178,7 @@ public class PAImgCprs {
 
     /**
      * Cria uma copia da imagem comprimida no caminho definido
+     *
      * @param caminho do Diretorio ou Arquivo
      * @return File do arquivo convertido.
      */
@@ -187,6 +188,7 @@ public class PAImgCprs {
 
     /**
      * Cria uma copia da imagem comprimida no caminho definido
+     *
      * @param arquivo do diretorio ou arquivo.
      * @return File do arquivo convertido.
      */
@@ -196,10 +198,11 @@ public class PAImgCprs {
 
     /**
      * Exibe a imagem no ImageView.
+     *
      * @param imageView ImageView que irá exibir a imagem;
      * @return O mesmo ImageView passado no argumento.
      */
-    public ImageView exibirEm(@NotNull ImageView imageView){
+    public ImageView exibirEm(@NotNull ImageView imageView) {
         Goiaba.checaNull(imageView, "ImageView não pode ser nullo");
         imageView.setImageBitmap(pegarBitmap());
         return imageView;
