@@ -24,6 +24,9 @@ Adicione a permissão no seu AndroidManifest.xml
 
 ## Começe a usar!
 
+- [Baixe o arquivo .aar] da versão mais recente na pasta aar.
+- Sigua esse [guia] do Android Studio para importar a biblioteca AAR
+
 ### Salvando no arquivo
 ```java
 File arquivo = PowerImageCompress.doArquivo("/caminho/do/arquivo.jpg")
@@ -64,3 +67,5 @@ ImageView mImageView = PowerImageCompress.doArquivo("/caminho/do/arquivo.jpg")
                   .taxaCompressao(65)
                   .exibirEm(imageView);
 ```
+[Baixe o arquivo .aar]: https://github.com/marcusedu/PowerImageCompress/tree/master/aar/br/com/powerapps/powerimagecompress
+[guia]: https://developer.android.com/studio/projects/android-library.html?hl=pt-br#AddDependency
