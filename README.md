@@ -57,7 +57,7 @@ byte[] imagemEmBytes = PowerImageCompress.doArquivo("/caminho/do/arquivo.jpg")
                   .paraLarguraXAltura(800,600)
                   .manterProporcao(false)
                   .taxaCompressao(65)
-                  .pegarBytes;
+                  .pegarBytes();
 ```
 
 ### Exibindo em um `ImageView`
