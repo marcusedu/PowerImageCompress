@@ -17,7 +17,8 @@ import java.io.IOException;
 public class PAImgCprs {
     private File imagemAComprimir;
     private String TAG = "PAImgCprs";
-    private int largura = 1280, altura = 780, taxaCompressao = 65;
+    private float largura = 1280, altura = 780;
+    private int taxaCompressao = 65;
     private Bitmap.CompressFormat compressFormat = Bitmap.CompressFormat.JPEG;
     private boolean manterResolucao = false;
     private boolean manterProporcao = true;
@@ -39,7 +40,7 @@ public class PAImgCprs {
      * @param altura desejada para imagem final
      * @return Builder
      */
-    public PAImgCprs paraAltura(@NotNull int altura) {
+    public PAImgCprs paraAltura(int altura) {
         this.altura = altura;
         return this;
     }
@@ -50,7 +51,7 @@ public class PAImgCprs {
      * @param largura desejada para a imagem final
      * @return Builder
      */
-    public PAImgCprs paraLargura(@NotNull int largura) {
+    public PAImgCprs paraLargura(int largura) {
         this.largura = largura;
         return this;
     }
@@ -62,7 +63,7 @@ public class PAImgCprs {
      * @param altura  altura desejada para imagem final, valor padrão 1280
      * @return Builder
      */
-    public PAImgCprs paraLarguraXAltura(@NotNull int largura, @NotNull int altura) {
+    public PAImgCprs paraLarguraXAltura(int largura, int altura) {
         this.largura = largura;
         this.altura = altura;
         return this;
@@ -74,7 +75,7 @@ public class PAImgCprs {
      * @param redimensionar true para não manterResolucao, valor padrão false
      * @return Builder
      */
-    public PAImgCprs manterResolucao(@NotNull boolean redimensionar) {
+    public PAImgCprs manterResolucao(boolean redimensionar) {
         this.manterResolucao = redimensionar;
         return this;
     }
@@ -86,7 +87,7 @@ public class PAImgCprs {
      * @param proporcao false para distorcer, valor padrão true.
      * @return Buildes
      */
-    public PAImgCprs manterProporcao(@NotNull boolean proporcao) {
+    public PAImgCprs manterProporcao(boolean proporcao) {
         this.manterProporcao = proporcao;
         return this;
     }
@@ -99,7 +100,7 @@ public class PAImgCprs {
      * @param taxaCompressao valor de 0 a 100, valor padrão 65
      * @return Builder
      */
-    public PAImgCprs taxaCompressao(@NotNull int taxaCompressao) {
+    public PAImgCprs taxaCompressao(int taxaCompressao) {
         if (taxaCompressao < 0 || taxaCompressao > 100)
             throw new IllegalArgumentException("Taxa da compressão deve estar entre 0 e 100");
         this.taxaCompressao = taxaCompressao;
@@ -215,7 +216,11 @@ public class PAImgCprs {
     }
 
     private File salvarNoArquivo(File aquivoDestino, boolean excluirOrigen) {
-        Goiaba.checaSeArquivoValido(aquivoDestino);
+        try {
+            Goiaba.checaSeArquivoValido(aquivoDestino);
+        } catch (IllegalArgumentException e) {
+            Log.e(TAG, "salvarNoArquivo: Arquivo não existe e será criado", e);
+        }
         if (aquivoDestino.isDirectory()) {
             aquivoDestino = new File(aquivoDestino.getPath() + imagemAComprimir.getName());
         }
