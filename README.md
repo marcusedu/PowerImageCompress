@@ -24,10 +24,11 @@ Adicione a permissão no seu AndroidManifest.xml
 
 ## Importe a Biblioteca
 
-## Começe a usar!
-
-- [Baixe o arquivo .aar] da versão mais recente na pasta aar.
-- Sigua esse [guia] do Android Studio para importar a biblioteca AAR
+```gradle
+dependencies{
+  compile 'br.com.powerapps.image.compress:power-image-compress:0.1.3'
+}
+```
 
 ### Salvando no arquivo
 ```java
