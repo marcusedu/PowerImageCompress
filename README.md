@@ -20,6 +20,7 @@ Adicione a permissão no seu AndroidManifest.xml
 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 ```
+**Não se esqueça de [checar e solicitar a permição](https://developer.android.com/training/permissions/requesting.html?hl=pt-br) para leitura/escrita em tempo de execução do app, para compatibilidade com versões mais recentes do Android**
 
 ## Importe a Biblioteca
 
