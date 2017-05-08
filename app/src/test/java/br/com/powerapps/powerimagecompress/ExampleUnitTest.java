@@ -1,21 +1,17 @@
 package br.com.powerapps.powerimagecompress;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-public class BAImgCprsTest {
-    private PAImgCprs compressoArquivo;
-
+/**
+ * Example local unit test, which will execute on the development machine (host).
+ *
+ * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ */
+public class ExampleUnitTest {
     @Test
-    public void redimencionaImagemParametrosPadrao() throws Exception {
-        compressoArquivo.copiarPara("C:/androidTest/imagemPadrao.jpg");
-    }
-
-    @Before
-    public void init() {
-        compressoArquivo = PowerImageCompress.doArquivo("C:/androidTest/imagem.jpg");
+    public void addition_isCorrect() throws Exception {
+        assertEquals(4, 2 + 2);
     }
 }
