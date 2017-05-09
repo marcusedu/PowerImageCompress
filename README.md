@@ -1,8 +1,6 @@
 # PowerImageCompress
 Simples biblioteca para comprimir e redimensionar imagem no Android
 
-Registro no repositorio Mavem em progresso.
-
 ## Recursos
 
   - Carregar imagem a partir de um `File` ou Caminho do arquivo.
@@ -26,7 +24,7 @@ Adicione a permissão no seu AndroidManifest.xml
 
 ```gradle
 dependencies{
-  compile 'br.com.powerapps.image.compress:power-image-compress:0.1.3'
+  compile 'br.com.powerapps.image.compress:power-image-compress:0.2.0'
 }
 ```
 
