@@ -160,7 +160,7 @@ public class PAImgCprs {
      * @return O arquivo da imagem convertida.
      */
     public File substituir() {
-        return salvarNoArquivo(imagemAComprimir, false);
+        return salvarNoArquivo(imagemAComprimir, true);
     }
 
     /**
@@ -215,6 +215,17 @@ public class PAImgCprs {
         return imageView;
     }
 
+    /**
+     * Aqui você define qual será o formato de compressão se PNG, JPEG ou WEBP.
+     *
+     * @param formato Formato de comprensão de imagens, padrão JPEG
+     * @return Builder
+     */
+    public PAImgCprs comprimirNoFormato(Bitmap.CompressFormat formato) {
+        this.compressFormat = formato;
+        return this;
+    }
+
     private File salvarNoArquivo(File aquivoDestino, boolean excluirOrigen) {
         try {
             Goiaba.checaSeArquivoValido(aquivoDestino);
@@ -225,6 +236,12 @@ public class PAImgCprs {
         if (aquivoDestino.isDirectory()) {
             aquivoDestino = new File(aquivoDestino.getPath(), imagemAComprimir.getName());
         }
+
+        aquivoDestino = new File(aquivoDestino
+                .getAbsolutePath()
+                .replaceAll("(\\.[\\w\\d]+$)"
+                        , "." + compressFormat.name()
+                                .toLowerCase()));
         byte[] ibagem = pegarBytes();
         FileOutputStream escreverImagem = null;
         try {
@@ -240,7 +257,8 @@ public class PAImgCprs {
         } finally {
             if (escreverImagem != null) try {
                 escreverImagem.close();
-                if (excluirOrigen) imagemAComprimir.delete();
+                if (excluirOrigen && !imagemAComprimir.equals(aquivoDestino))
+                    imagemAComprimir.delete();
             } catch (IOException e) {
                 e.printStackTrace();
             }

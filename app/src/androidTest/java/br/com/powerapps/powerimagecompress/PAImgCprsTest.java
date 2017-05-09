@@ -1,6 +1,8 @@
 package br.com.powerapps.powerimagecompress;
 
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Environment;
 import android.support.test.runner.AndroidJUnit4;
 
@@ -27,7 +29,7 @@ public class PAImgCprsTest {
 
     @Before
     public void setUp() throws Exception {
-        arquivoBase = new File("/sdcard/img.jpg");
+        arquivoBase = new File("/sdcard/img.jpeg");
         compress = PowerImageCompress.doArquivo(arquivoBase);
     }
 
@@ -108,5 +110,38 @@ public class PAImgCprsTest {
         assertTrue(movido.length() > 0);
         assertFalse(arquivoBase.exists());
         assertNotEquals(arquivoBase.getName(), movido.getName());
+    }
+
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    @Test
+    public void deveCopiarComONovoFormato() throws Exception {
+        File arquivoCopiado =
+                compress.comprimirNoFormato(Bitmap.CompressFormat.WEBP)
+                        .copiarPara(Environment.getExternalStorageDirectory().getAbsoluteFile() + "/test/");
+        assertTrue(arquivoCopiado.getName().contains(".webp"));
+    }
+
+    @Test
+    public void deveSubstituirComONovoFormato() throws Exception {
+        File aquirvoSubstituto = compress.comprimirNoFormato(Bitmap.CompressFormat.PNG)
+                .substituir();
+        assertFalse(arquivoBase.exists());
+        assertNotEquals(arquivoBase.getName(), aquirvoSubstituto.getName());
+    }
+
+    @Test
+    public void deveSubstituirComOMesmoFormato() throws Exception {
+        File aquirvoSubstituto = compress.substituir();
+        assertTrue(arquivoBase.exists());
+        assertNotEquals(arquivoBase.getName(), aquirvoSubstituto.getName());
+    }
+
+    @Test
+    public void deveComprimirMantendoResolucao() throws Exception {
+        Bitmap comprimido = compress.manterResolucao(true)
+                .taxaCompressao(45)
+                .pegarBitmap();
+        assertEquals(1080, comprimido.getWidth());
+        assertEquals(1920, comprimido.getHeight());
     }
 }
