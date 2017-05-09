@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'maven'
+apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
 
 android {
     compileSdkVersion 25
@@ -8,7 +9,7 @@ android {
         minSdkVersion 9
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "0.2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -21,7 +22,8 @@ android {
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "file://C:/Users/marcu/Desktop/Android Desafio/PowerImageCompress2/aar")
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+//            repository(url: "https://oss.sonatype.org/content/repositories/snapshots/")
 
             pom.groupId = GROUP
             pom.artifactId = POM_ARTIFACT_ID
@@ -38,9 +40,4 @@ dependencies {
     })
     testCompile 'junit:junit:4.12'
     compile 'org.jetbrains:annotations-java5:15.0'
-}
-
-task jarTask(type: Jar) {
-    baseName="my-sdk-android"
-    from 'src/main/java'
 }
