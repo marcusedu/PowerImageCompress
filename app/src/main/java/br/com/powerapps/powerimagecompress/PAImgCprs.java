@@ -219,10 +219,11 @@ public class PAImgCprs {
         try {
             Goiaba.checaSeArquivoValido(aquivoDestino);
         } catch (IllegalArgumentException e) {
-            Log.e(TAG, "salvarNoArquivo: Arquivo não existe e será criado", e);
+            Log.w(TAG, "salvarNoArquivo: Arquivo não existe e será criado", e);
+
         }
         if (aquivoDestino.isDirectory()) {
-            aquivoDestino = new File(aquivoDestino.getPath() + imagemAComprimir.getName());
+            aquivoDestino = new File(aquivoDestino.getPath(), imagemAComprimir.getName());
         }
         byte[] ibagem = pegarBytes();
         FileOutputStream escreverImagem = null;
